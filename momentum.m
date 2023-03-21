@@ -97,10 +97,10 @@ for i = 2:Ny + 1
             if liddriven_model  
                 f_tau = 2*mu*dx/dy;
             end
-            Ac_u(i, j) = Ac_v(i, j) + m_dot;
-            Ac_v(i, j) = Ac_v(i, j) + m_dot + f_tau;
-            Bc_u(i, j) = Bc_u(i, j) + m_dot*uf(i, j);
-            Bc_v(i, j) = Bc_v(i, j) + m_dot*vf(i, j);
+            Ac_u(i, j) = Ac_v(i, j) + m_dot + 2*mu*dy/dx;
+            Ac_v(i, j) = Ac_v(i, j) + m_dot + f_tau + 2*mu*dy/dx;
+            Bc_u(i, j) = Bc_u(i, j) + m_dot*uf(i, j) + 2*mu*dy/dx*uf(i, j);
+            Bc_v(i, j) = Bc_v(i, j) + m_dot*vf(i, j) + 2*mu*dy/dx*vf(i, j);
         end
 
         % West
@@ -112,6 +112,7 @@ for i = 2:Ny + 1
             f_tau = 0;
             if liddriven_model  
                 f_tau = 2*mu*dx/dy;
+                af = max(0.0, mw) + 2*mu*dx/dy;
             end
             Ac_u(i, j) = Ac_v(i, j) + af;
             Ac_v(i, j) = Ac_v(i, j) + f_tau + af;
@@ -127,10 +128,10 @@ for i = 2:Ny + 1
             end
             momentum = 0;
             if liddriven_model
-                momentum = f_tau*U;
+                momentum = f_tau*U + 2*mu*dy/dx;
             end
-            Ac_u(i, j) = Ac_u(i, j) + f_tau;
-            Ac_v(i, j) = Ac_u(i, j);
+            Ac_u(i, j) = Ac_u(i, j) + f_tau + 2*mu*dy/dx;
+            Ac_v(i, j) = Ac_u(i, j) + 2*mu*dy/dx;
             Bc_u(i, j) = Bc_u(i, j) + momentum;
             Bc_v(i, j) = Bc_v(i, j);     
         end
@@ -141,8 +142,8 @@ for i = 2:Ny + 1
             if or(channelflow_model, liddriven_model)  
                 f_tau = 2*mu*dy/dx;
             end
-            Ac_u(i, j) = Ac_u(i, j) + f_tau;
-            Ac_v(i, j) = Ac_u(i, j);
+            Ac_u(i, j) = Ac_u(i, j) + f_tau + 2*mu*dy/dx;
+            Ac_v(i, j) = Ac_u(i, j) + 2*mu*dy/dx;
             Bc_u(i, j) = Bc_u(i, j);
             Bc_v(i, j) = Bc_v(i, j);
         end

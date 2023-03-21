@@ -31,7 +31,7 @@ end
 % Solver
 n_sor_m = 500;
 n_sor_c = 1000;
-max_iteration = 1000;
+max_iteration = 1;
 residual_gap = 20;
 tol = 1e-6;
 transient = false;
@@ -150,5 +150,5 @@ for i_iteration = 1:max_iteration
 end
 
 %% Post-Processing
-if ~transient, postproc_velocity(u, v, X, Y, x, y, Nx, Ny, Lx, channelflow_model, liddriven_model); end
-if liddriven_model, postproc_centerline(Nx, Ny, y, u); uy = [u(2:Ny + 1, round(Nx/2)), y']; end
+% if ~transient, postproc_velocity(u, v, X, Y, x, y, Nx, Ny, Lx, channelflow_model, liddriven_model); end
+% if liddriven_model, postproc_centerline(Nx, Ny, y, u); uy = [u(2:Ny + 1, round(Nx/2)), y']; end

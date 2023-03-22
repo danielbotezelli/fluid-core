@@ -31,7 +31,7 @@ end
 % Solver
 n_sor_m = 500;
 n_sor_c = 1000;
-max_iteration = 2;
+max_iteration = 1;
 residual_gap = 20;
 tol = 1e-6;
 transient = false;

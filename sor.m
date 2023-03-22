@@ -9,7 +9,7 @@ for i_sor = 1:n_sor
         end
     end
     residual = residual/(Nx*Ny);
-    if residual < 1.0e-6
+    if residual < 1.0e-7
         break
     end
 end

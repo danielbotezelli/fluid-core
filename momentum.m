@@ -106,8 +106,10 @@ for i = 2:Ny + 1
         % West
         if j == 2
             af = 0;
+            momentum = 0;
             if channelflow_model
                 af = max(0.0, mw) + 2*mu*dx/dy;
+                momentum = af*U;
             end
             f_tau = 0;
             if liddriven_model  
@@ -116,7 +118,7 @@ for i = 2:Ny + 1
             end
             Ac_u(i, j) = Ac_u(i, j) + af;
             Ac_v(i, j) = Ac_v(i, j) + f_tau + af;
-            Bc_u(i, j) = Bc_u(i, j) + af*U;
+            Bc_u(i, j) = Bc_u(i, j) + momentum;
             Bc_v(i, j) = Bc_v(i, j);
         end
 

@@ -38,19 +38,19 @@ p(Ny + 2, 2:Nx + 1) = p(Ny + 1, 2:Nx + 1) + 0.5*grad_p_j(Ny + 1, 2:Nx + 1)*dy;  
 p(1, 2:Nx + 1) = p(2, 2:Nx + 1) - 0.5*grad_p_j(2, 2:Nx + 1)*dy;                 % South
 
 % Outlet
-% if channelflow_model
-%     mass_in = rho*U*Ly;
-%     mass_out = 0;
-%     for i = 1:Ny + 2
-%         mass_out = mass_out + rho*u(i, Nx + 2)*dy;
-%     end
-%     if mass_out ~= 0
-%         u(:, Nx + 2) = u(:, Nx + 2)*(mass_in/mass_out);
-%         v(:, Nx + 2) = v(:, Nx + 2)*(mass_in/mass_out);
-% 
-%         uf(:, Nx + 1) = u(:, Nx + 2);
-%         vf(1:Ny + 1, Nx + 2) = v(1:Ny + 1, Nx + 2);
-%     end
-% end
+if channelflow_model
+    mass_in = rho*U*Ly;
+    mass_out = 0;
+    for i = 1:Ny + 2
+        mass_out = mass_out + rho*u(i, Nx + 2)*dy;
+    end
+    if mass_out ~= 0
+        u(:, Nx + 2) = u(:, Nx + 2)*(mass_in/mass_out);
+        v(:, Nx + 2) = v(:, Nx + 2)*(mass_in/mass_out);
+        
+        uf(:, Nx + 1) = u(:, Nx + 2);
+        vf(1:Ny + 1, Nx + 2) = v(1:Ny + 1, Nx + 2);
+    end
+end
 end
 

@@ -1,5 +1,11 @@
 function [u, v, uf, vf] = rhie_and_chow(Nx, Ny, u, v, uf, vf, p, grad_p_i, grad_p_j, ...
                                         Ac_u, Ac_v, dx, dy, channelflow_model)
+
+    % Outlet
+    if channelflow_model
+        
+    end
+    
 for i = 2:Ny + 1
     for j = 2:Nx
         grad_pf_bar_e = 0.5*(grad_p_i(i, j) + grad_p_i(i, j + 1));

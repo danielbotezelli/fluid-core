@@ -14,15 +14,15 @@ clear; clc; close all;
 
 % Model 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-model = 1;  % 1. Developed Channel-Flow    %%
+model = 2;  % 1. Developed Channel-Flow    %%
             % 2. Lid-Driven Cavity         %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Refinement
 switch model
     case 1
-        Nx = 100;
-        Ny = 10;
+        Nx = 200;
+        Ny = 20;
     case 2
         Nx = 150;
         Ny = 150;
@@ -31,7 +31,7 @@ end
 % Solver
 n_sor_m = 500;
 n_sor_c = 1000;
-max_iteration = 2;
+max_iteration = 5000;
 residual_gap = 20;
 tol = 1e-6;
 transient = false;
@@ -123,7 +123,7 @@ for i_iteration = 1:max_iteration
     % Solve momentum
     u = sor(Nx, Ny, Ac_u, Ae, Aw, An, As, Bc_u, u, n_sor_m);
     v = sor(Nx, Ny, Ac_v, Ae, Aw, An, As, Bc_v, v, n_sor_m);
-    
+   
     % Rhie & Chow interpolation
     [u, v, uf, vf] = rhie_and_chow(Nx, Ny, u, v, uf, vf, p, grad_p_i, grad_p_j, ...
                                    Ac_u, Ac_v, dx, dy, channelflow_model);
@@ -150,5 +150,5 @@ for i_iteration = 1:max_iteration
 end
 
 %% Post-Processing
-% if ~transient, postproc_velocity(u, v, X, Y, x, y, Nx, Ny, Lx, channelflow_model, liddriven_model); end
-% if liddriven_model, postproc_centerline(Nx, Ny, y, u); uy = [u(2:Ny + 1, round(Nx/2)), y']; end
+if ~transient, postproc_velocity(u, v, X, Y, x, y, Nx, Ny, Lx, channelflow_model, liddriven_model); end
+if liddriven_model, postproc_centerline(Nx, Ny, y, u); uy = [u(2:Ny + 1, round(Nx/2)), y']; end
